@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anil Shevkar — SAP ABAP Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F5F2EC;
+  --bg2: #EDE9E0;
+  --ink: #1A1714;
+  --ink2: #4A4540;
+  --ink3: #8A837A;
+  --gold: #C8A84B;
+  --gold2: #E8C96B;
+  --green: #2D5A3D;
+  --green2: #4A8A5E;
+  --red: #C0392B;
+  --border: rgba(26,23,20,0.12);
+  --card: #FFFFFF;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Cabinet Grotesk', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 48px;
+  background: rgba(245,242,236,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Clash Display', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.5px;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink2);
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-cta {
+  background: var(--ink);
+  color: var(--bg) !important;
+  padding: 8px 18px;
+  border-radius: 40px;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  text-decoration: none;
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--green) !important; color: white !important; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  padding: 120px 48px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: 'SAP';
+  position: absolute;
+  font-family: 'Clash Display', sans-serif;
+  font-weight: 700;
+  font-size: 320px;
+  color: rgba(26,23,20,0.04);
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--green);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 40px;
+  margin-bottom: 20px;
+}
+.hero-tag::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #7FD4A0;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; } 50% { opacity:0.3; }
+}
+
+.hero-name {
+  font-family: 'Clash Display', sans-serif;
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 1.0;
+  letter-spacing: -2px;
+  margin-bottom: 8px;
+}
+.hero-name .gold { color: var(--gold); }
+
+.hero-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink2);
+  margin-bottom: 24px;
+  letter-spacing: -0.3px;
+}
+
+.hero-desc {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--ink2);
+  max-width: 480px;
+  margin-bottom: 36px;
+}
+
+.hero-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 13px 28px;
+  border-radius: 40px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.1s;
+  display: inline-block;
+}
+.btn-primary:hover { background: var(--green); transform: translateY(-1px); }
+
+.btn-outline {
+  border: 1.5px solid var(--border);
+  color: var(--ink);
+  padding: 13px 28px;
+  border-radius: 40px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+  display: inline-block;
+}
+.btn-outline:hover { border-color: var(--ink); background: var(--bg2); }
+
+/* Hero right side — stats card */
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  animation: fadeUp 0.6s ease both;
+}
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+.stat-num {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-label { font-size: 12px; color: var(--ink3); font-weight: 500; }
+
+.contact-card {
+  background: var(--green);
+  border-radius: 16px;
+  padding: 20px 24px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+.contact-icon {
+  width: 28px; height: 28px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.contact-row a { color: rgba(255,255,255,0.9); text-decoration: none; }
+.contact-row a:hover { color: white; }
+
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(20px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+/* SECTION COMMON */
+section {
+  padding: 80px 48px;
+}
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 48px;
+}
+.section-num {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+.section-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  margin-left: 16px;
+}
+
+/* SKILLS */
+#skills { background: var(--bg2); }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.skill-group {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.skill-group:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(26,23,20,0.08); }
+
+.skill-group-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.skill-group-icon {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+
+.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.skill-tag {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--ink2);
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+.skill-tag.hot {
+  background: rgba(200,168,75,0.12);
+  border-color: rgba(200,168,75,0.3);
+  color: #8A6820;
+}
+
+/* PROJECTS */
+.projects-list { display: flex; flex-direction: column; gap: 16px; }
+
+.project-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 32px;
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 20px;
+  align-items: start;
+  transition: transform 0.2s;
+}
+.project-card:hover { transform: translateX(4px); }
+
+.project-num {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--border);
+  line-height: 1;
+  padding-top: 2px;
+}
+
+.project-name {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  letter-spacing: -0.3px;
+}
+.project-desc { font-size: 14px; color: var(--ink2); line-height: 1.6; }
+
+.project-badge {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink3);
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+.project-badge.live {
+  background: rgba(45,90,61,0.1);
+  border-color: rgba(45,90,61,0.2);
+  color: var(--green);
+}
+
+/* EDUCATION */
+#education { background: var(--bg2); }
+
+.edu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.edu-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.edu-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--gold);
+}
+.edu-year {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.edu-degree {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  letter-spacing: -0.3px;
+}
+.edu-school { font-size: 13px; color: var(--ink2); }
+
+/* OBJECTIVE */
+.objective-block {
+  max-width: 800px;
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: 24px;
+  padding: 48px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+.objective-block::before {
+  content: '"';
+  position: absolute;
+  font-family: 'Clash Display', sans-serif;
+  font-size: 200px;
+  color: rgba(255,255,255,0.05);
+  top: -20px;
+  left: 20px;
+  line-height: 1;
+}
+.objective-text {
+  font-size: 18px;
+  line-height: 1.8;
+  position: relative;
+  z-index: 1;
+  font-weight: 300;
+}
+.objective-text strong { font-weight: 500; color: var(--gold2); }
+
+/* PERSONAL */
+.personal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 48px;
+}
+.personal-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+.personal-key { font-size: 11px; color: var(--ink3); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px; }
+.personal-val { font-size: 14px; font-weight: 500; }
+
+/* SOFT SKILLS */
+.soft-list { display: flex; flex-wrap: wrap; gap: 10px; }
+.soft-tag {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 40px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.soft-tag span { font-size: 16px; }
+
+/* FOOTER */
+footer {
+  background: var(--ink);
+  color: rgba(245,242,236,0.7);
+  text-align: center;
+  padding: 32px 48px;
+  font-size: 13px;
+}
+footer strong { color: var(--gold2); }
+
+/* SCROLL ANIMATIONS */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; padding: 100px 20px 60px; gap: 40px; }
+  .hero::before { font-size: 140px; }
+  .hero-name { font-size: 48px; }
+  section { padding: 60px 20px; }
+  .edu-grid { grid-template-columns: 1fr; }
+  .project-card { grid-template-columns: 1fr; }
+  .project-num { display: none; }
+  .objective-block { padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Anil<span>.</span>dev</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="mailto:anilshevkar1826@gmail.com" class="nav-cta">Hire Me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-tag">Available for Work</div>
+    <h1 class="hero-name">Anil<br><span class="gold">Shevkar</span></h1>
+    <div class="hero-title">SAP ABAP Developer</div>
+    <p class="hero-desc">
+      Fresh B.E. graduate with hands-on expertise in ABAP programming, ALV reports, Smart Forms, BDC, BADIs, and Enhancement Frameworks. Actively upskilling in S/4HANA, CDS Views, OData, and Fiori — ready to contribute to enterprise digital transformation.
+    </p>
+    <div class="hero-actions">
+      <a href="mailto:anilshevkar1826@gmail.com" class="btn-primary">Get in Touch</a>
+      <a href="#projects" class="btn-outline">View Projects</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Technical Skills</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">6+</div>
+        <div class="stat-label">Live Projects</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2024</div>
+        <div class="stat-label">B.E. Graduate</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--green); font-size:28px;">S/4HANA</div>
+        <div class="stat-label">Currently Learning</div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-row">
+        <div class="contact-icon">📍</div>
+        <span>Kharadi, Pune, Maharashtra, India</span>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">📞</div>
+        <a href="tel:+918275609045">+91 82756 09045</a>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">✉️</div>
+        <a href="mailto:anilshevkar1826@gmail.com">anilshevkar1826@gmail.com</a>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">🔗</div>
+        <a href="https://linkedin.com" target="_blank">LinkedIn Profile</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIVE -->
+<section id="objective" style="padding: 60px 48px; background: var(--bg2);">
+  <div class="objective-block reveal">
+    <p class="objective-text">
+      To start my career as an <strong>SAP ABAP Developer</strong>, applying strong technical foundations in ABAP programming, report development, and enhancement techniques. I aim to contribute to <strong>enterprise digital transformation</strong> projects while continuously learning advanced SAP technologies such as <strong>S/4HANA, OData services, CDS Views, IDocs,</strong> and RFC integrations.
+    </p>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-group reveal">
+      <div class="skill-group-title">
+        <div class="skill-group-icon" style="background:rgba(200,168,75,0.15);">📊</div>
+        Data Dictionary
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">Tables</span>
+        <span class="skill-tag hot">Domains</span>
+        <span class="skill-tag">Data Elements</span>
+        <span class="skill-tag">Structures</span>
+        <span class="skill-tag">Views</span>
+        <span class="skill-tag">Search Helps</span>
+        <span class="skill-tag">Table Maintenance Generator</span>
+      </div>
+    </div>
+
+    <div class="skill-group reveal">
+      <div class="skill-group-title">
+        <div class="skill-group-icon" style="background:rgba(45,90,61,0.12);">📄</div>
+        Reports
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">ALV Reports</span>
+        <span class="skill-tag hot">Interactive ALV</span>
+        <span class="skill-tag">Classical Reports</span>
+        <span class="skill-tag">Blocked ALV</span>
+        <span class="skill-tag">Hierarchical ALV</span>
+      </div>
+    </div>
+
+    <div class="skill-group reveal">
+      <div class="skill-group-title">
+        <div class="skill-group-icon" style="background:rgba(192,57,43,0.1);">🔧</div>
+        Enhancements
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">BADIs</span>
+        <span class="skill-tag hot">User Exits</span>
+        <span class="skill-tag">Customer Exits</span>
+        <span class="skill-tag">Enhancement Points</span>
+      </div>
+    </div>
+
+    <div class="skill-group reveal">
+      <div class="skill-group-title">
+        <div class="skill-group-icon" style="background:rgba(200,168,75,0.15);">🔄</div>
+        Integration
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">BAPIs</span>
+        <span class="skill-tag hot">IDocs</span>
+        <span class="skill-tag">RFC Function Modules</span>
+        <span class="skill-tag">Custom IDocs</span>
+      </div>
+    </div>
+
+    <div class="skill-group reveal">
+      <div class="skill-group-title">
+        <div class="skill-group-icon" style="background:rgba(45,90,61,0.12);">📋</div>
+        Forms & UI
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">Smart Forms</span>
+        <span class="skill-tag">Module Pool</span>
+        <span class="skill-tag">Tabstrips</span>
+        <span class="skill-tag">Table Controls</span>
+        <span class="skill-tag">GUI Elements</span>
+      </div>
+    </div>
+
+    <div class="skill-group reveal">
+      <div class="skill-group-title">
+        <div class="skill-group-icon" style="background:rgba(74,138,94,0.12);">🚀</div>
+        Advanced / S4HANA
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">CDS Views</span>
+        <span class="skill-tag hot">OData Services</span>
+        <span class="skill-tag">Fiori (Basics)</span>
+        <span class="skill-tag">S/4HANA Migration</span>
+        <span class="skill-tag">SAP ECC 7.04</span>
+      </div>
+    </div>
+
+    <div class="skill-group reveal">
+      <div class="skill-group-title">
+        <div class="skill-group-icon" style="background:rgba(200,168,75,0.15);">💾</div>
+        Data Migration
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">BDC Session Method</span>
+        <span class="skill-tag hot">Call Transaction</span>
+        <span class="skill-tag">Performance Optimization</span>
+        <span class="skill-tag">SQL Indexes</span>
+      </div>
+    </div>
+
+    <div class="skill-group reveal">
+      <div class="skill-group-title">
+        <div class="skill-group-icon" style="background:rgba(45,90,61,0.12);">🏢</div>
+        Functional Awareness
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag">SAP MM</span>
+        <span class="skill-tag">SAP SD</span>
+        <span class="skill-tag">SAP FICO</span>
+        <span class="skill-tag">Process Flows</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="background: var(--bg2);">
+  <div class="section-label">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Projects & Work</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="projects-list">
+    <div class="project-card reveal">
+      <div class="project-num">01</div>
+      <div>
+        <div class="project-name">Classical & ALV Report Suite</div>
+        <div class="project-desc">Designed and executed Classical and ALV reports for real-time business scenarios including Simple, Interactive, Blocked, and Hierarchical ALV report types with full customization.</div>
+      </div>
+      <span class="project-badge live">Completed</span>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">02</div>
+      <div>
+        <div class="project-name">Smart Forms — Order Management</div>
+        <div class="project-desc">Developed Smart Forms for client order management with customized layouts and driver programs for seamless print output.</div>
+      </div>
+      <span class="project-badge live">Completed</span>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">03</div>
+      <div>
+        <div class="project-name">Module Pool Application</div>
+        <div class="project-desc">Built interactive Module Pool applications featuring Tabstrips, Table Controls, and custom GUI elements for a rich user experience.</div>
+      </div>
+      <span class="project-badge live">Completed</span>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">04</div>
+      <div>
+        <div class="project-name">BDC Data Migration</div>
+        <div class="project-desc">Supported data migration activities using both Session Method and Call Transaction BDC techniques for legacy data upload into SAP.</div>
+      </div>
+      <span class="project-badge live">Completed</span>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">05</div>
+      <div>
+        <div class="project-name">SAP Enhancement Framework</div>
+        <div class="project-desc">Extended core SAP functionality through User Exits, Customer Exits, BADIs, and Enhancement Points for business-specific customization.</div>
+      </div>
+      <span class="project-badge live">Completed</span>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">06</div>
+      <div>
+        <div class="project-name">IDoc + RFC + OData + CDS (In Progress)</div>
+        <div class="project-desc">Currently working on IDoc configuration, RFC integration, OData services for Fiori apps, and CDS Views for S/4HANA data modeling in training environment.</div>
+      </div>
+      <span class="project-badge">In Progress</span>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Education</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <div class="edu-year">2020 — 2024</div>
+      <div class="edu-degree">Bachelor of Engineering</div>
+      <div class="edu-school" style="font-size:15px; font-weight:500; margin-bottom:6px;">Production Engineering</div>
+      <div class="edu-school">Amrutvahini College of Engineering<br>Pune University</div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-year">2017 — 2020</div>
+      <div class="edu-degree">Diploma</div>
+      <div class="edu-school" style="font-size:15px; font-weight:500; margin-bottom:6px;">Mechanical Engineering</div>
+      <div class="edu-school">Amrutvahini Polytechnic College</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="background: var(--bg2);">
+  <div class="section-label">
+    <span class="section-num">04</span>
+    <h2 class="section-title">About Me</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="personal-grid reveal">
+    <div class="personal-item">
+      <div class="personal-key">Date of Birth</div>
+      <div class="personal-val">18 September 2000</div>
+    </div>
+    <div class="personal-item">
+      <div class="personal-key">Location</div>
+      <div class="personal-val">Kharadi, Pune</div>
+    </div>
+    <div class="personal-item">
+      <div class="personal-key">Languages</div>
+      <div class="personal-val">English, Hindi, Marathi</div>
+    </div>
+    <div class="personal-item">
+      <div class="personal-key">Status</div>
+      <div class="personal-val">Unmarried</div>
+    </div>
+    <div class="personal-item">
+      <div class="personal-key">Job Status</div>
+      <div class="personal-val" style="color:var(--green); font-weight:600;">Open to Work</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom: 32px;">
+    <h3 style="font-family:'Clash Display',sans-serif; font-size:22px; font-weight:600; margin-bottom:16px; letter-spacing:-0.3px;">Soft Skills</h3>
+    <div class="soft-list reveal">
+      <div class="soft-tag"><span>🧠</span> Analytical Thinking</div>
+      <div class="soft-tag"><span>🐛</span> Debugging & Troubleshooting</div>
+      <div class="soft-tag"><span>⚙️</span> Problem Solving</div>
+      <div class="soft-tag"><span>🤝</span> Collaboration</div>
+      <div class="soft-tag"><span>💬</span> Communication</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Designed & built for <strong>Anil Ashok Shevkar</strong> · SAP ABAP Developer · Pune, India</p>
+  <p style="margin-top:6px; font-size:12px;">anilshevkar1826@gmail.com · +91 82756 09045</p>
+</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 60);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
